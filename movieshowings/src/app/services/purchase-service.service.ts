@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IPurchase } from '../interfaces/IPurchase';
-import { ITicket } from '../interfaces/ITicket';
+import { IPurchase } from '../models/IPurchase';
+import { ITicket } from '../models/ITicket';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';

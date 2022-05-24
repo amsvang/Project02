@@ -7,7 +7,7 @@ export class IMovie implements IMovie {
 }
 
 export interface IMovieDetail{
-    id?:number,
+    id?:string,
     title?:string,
     releaseState?:string,
     image?:string,
@@ -16,7 +16,7 @@ export interface IMovieDetail{
 }
 
 export class IMovieDetail implements IMovieDetail {
-    id?: number | undefined;
+    id?: string;
     title?: string;
     releaseState?: string | undefined;
     image?: string | undefined;

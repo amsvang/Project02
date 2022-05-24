@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IMovie, IMovieDetail } from 'src/app/interfaces/imovie';
-import { ITicket } from 'src/app/interfaces/ITicket';
+import { IMovie, IMovieDetail } from 'src/app/models/imovie';
+import { ITicket } from 'src/app/models/ITicket';
 import { MovieServiceService } from 'src/app/services/movie-service.service';
 import { SetAndGetTicketsService } from 'src/app/services/set-and-get-tickets.service';
 import { TicketServiceService } from 'src/app/services/ticket-service.service';

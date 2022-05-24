@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { IUser } from 'src/app/interfaces/IUser';
+import { IUser } from 'src/app/models/IUser';
 import { UserService } from 'src/app/services/user.service';
 
 

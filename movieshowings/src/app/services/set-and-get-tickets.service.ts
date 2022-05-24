@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ITicket } from '../interfaces/ITicket';
+import { ITicket } from '../models/ITicket';
 
 @Injectable({
   providedIn: 'root'

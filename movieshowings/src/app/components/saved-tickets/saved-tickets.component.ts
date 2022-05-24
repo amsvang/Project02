@@ -1,4 +1,4 @@
-import { ITicket } from 'src/app/interfaces/ITicket';
+import { ITicket } from 'src/app/models/ITicket';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 // import { LocalStorageService} from 'src/app/services/local-storage-services.service'
@@ -17,30 +17,7 @@ interface ITicketAddBool extends ITicket {
 })
 export class SavedTicketsComponent implements OnInit {
 
-  // @Output() goToPurchasePage = new EventEmitter();
-
-  tickets: ITicketAddBool[] = [
-  //    {
-  //    price: 8.32,
-  //    movieTitle: "Titanic",
-  //    genre: "something here",
-  // //   releaseDate: "1/1/1999",
-  //    showTime: "2/28/22",
-  //    showTimeSlot: "8:00pm",
-  //    checked: false,
-  //    },
-  //    {
-  //      price: 8.32,
-  //      movieTitle: "Titanic",
-  //      genre: "something here",
-  //  //    releaseDate: "1/1/1999",
-  //      showTime: "2/28/22",
-  //      showTimeSlot: "12:00am",
-  //      checked: false,
-  //      }
-  ];
-
-  //setting initial select all to false
+  tickets: ITicketAddBool[] = [];
   selectAllTicketsState: boolean = false;
 
   constructor(private router: Router, private ts: TicketServiceService, private set: SetAndGetTicketsService) { }
@@ -69,18 +46,8 @@ export class SavedTicketsComponent implements OnInit {
 
   submitToPurchasePage() {
     const selectedTickets = this.tickets.filter(item => item.checked);
-    // this.localStore.setItem('tickets', JSON.stringify(selectedTickets));
     this.set.setSelectedTickets(selectedTickets);
-
     this.router.navigate(["/purchase"]);
-
-  //   const selectedTickets = this.tickets.filter(item => item.addToPurchase);
-  //   const navigationExtras: NavigationExtras = {
-  //     state: {
-  //       selectedTickets 
-  //     }
-  //   };
-  //   this.router.navigate(["/user-page"], navigationExtras );
   }
 
 }

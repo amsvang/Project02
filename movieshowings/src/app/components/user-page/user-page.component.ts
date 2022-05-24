@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UpdateUserComponent } from '../update-user/update-user.component';
 import { UserService } from 'src/app/services/user.service';
-import { IUser } from 'src/app/interfaces/IUser';
+import { IUser } from 'src/app/models/IUser';
+import { CookieService } from 'src/app/services/cookie.service';
 
 @Component({
   selector: 'user-page',
@@ -13,7 +14,7 @@ export class UserPageComponent implements OnInit {
 
   hide:boolean = true;
 
-  constructor(private userService:UserService) { }
+  constructor(private userService:UserService, private cookieService:CookieService) { }
 
   ngOnInit(): void {
     this.getCurrentInfo();
@@ -43,11 +44,11 @@ export class UserPageComponent implements OnInit {
   }
 
   getCurrentInfo(){
-    if(!this.getCookie("id")){
+    if(!this.cookieService){
       alert("Please login to access this page");
       window.location.href="/login";
     }
-    let id = this.getCookie("id");
+    let id = this.cookieService.getCookie("id");
     this.userService.getUser(id)
     .subscribe((data => {
       this.showFirst = data.first;
@@ -73,31 +74,11 @@ export class UserPageComponent implements OnInit {
       
     })
 
-
-
     this.showFirst = this.userInfo.first;
     this.showLast = this.userInfo.last;
     this.showEmail = this.userInfo.email;
     this.showPassword = this.userInfo.password;
-  
-    
 
-  }
-
-  getCookie(cname:any) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
   }
 
 }

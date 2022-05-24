@@ -1,4 +1,4 @@
-import { IPurchase } from "../interfaces/IPurchase";
+import { IPurchase } from "./IPurchase";
 import { ITicket } from "./ITicket";
 
 export interface IUser {

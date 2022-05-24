@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../interfaces/IUser';
+import { IUser } from '../models/IUser';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, Subject } from 'rxjs';
@@ -23,6 +23,8 @@ export class UserService {
   }
 
   user$: Subject<IUser> = new Subject();
+
+  constructor(private http:HttpClient) { }
 
   //shouldn't this and login return an observable since there's multiple values?
   register(user: IUser): Observable<IUser> {
@@ -65,5 +67,5 @@ export class UserService {
        }
 
 
-  constructor(private http:HttpClient) { }
+ 
 }

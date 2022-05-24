@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { IUser } from 'src/app/interfaces/IUser';
+import { IUser } from 'src/app/models/IUser';
 import { UserPageComponent } from '../user-page/user-page.component';
 
 @Component({

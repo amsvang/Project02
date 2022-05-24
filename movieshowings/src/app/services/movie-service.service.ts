@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IMovie, IMovieDetail } from '../interfaces/imovie';
+import { IMovie, IMovieDetail } from '../models/imovie';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
