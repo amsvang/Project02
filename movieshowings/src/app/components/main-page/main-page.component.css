@@ -1,3 +1,7 @@
+.in-theaters {
+  padding-left: 3rem;
+}
+
 
 .wrapper {
     display: flex;
@@ -6,15 +10,16 @@
   }
   .wrapper > div {
     line-height: 45px;
-    /* height: 15px; */
     margin: 5px;
     width:25rem;
   }
 
 
 select {
-    background-color: #0c1f1e;
-    color:#b78534;
+    background-color: #a9aeae;
+    color:#0c1f1e;
+    width: 14rem;
+    margin: auto;
 }
 
   .card {
@@ -24,7 +29,11 @@ select {
   }
 
 .card-title {
-    height: 100px;
+    height: 75px;
+}
+
+.day-and-time{
+  text-align: center;
 }
 
 .our-btn {

@@ -13,6 +13,7 @@ import { PurchaseComponent } from './components/purchase/purchase.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SavedTicketsComponent } from './components/saved-tickets/saved-tickets.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { LikesComponent } from './components/likes/likes.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { MainPageComponent } from './components/main-page/main-page.component';
     LoginComponent,
     SavedTicketsComponent,
     PurchaseComponent,
-    MainPageComponent
+    MainPageComponent,
+    LikesComponent
   ],
   imports: [
     BrowserModule,

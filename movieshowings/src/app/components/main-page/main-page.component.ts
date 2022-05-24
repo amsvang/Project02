@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMovie, IMovieDetail } from 'src/app/models/imovie';
 import { ITicket } from 'src/app/models/ITicket';
+import { CookieService } from 'src/app/services/cookie.service';
 import { MovieServiceService } from 'src/app/services/movie-service.service';
 import { SetAndGetTicketsService } from 'src/app/services/set-and-get-tickets.service';
 import { TicketServiceService } from 'src/app/services/ticket-service.service';
@@ -13,16 +14,18 @@ import { TicketServiceService } from 'src/app/services/ticket-service.service';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor(private router: Router, private movieService:MovieServiceService, private ticketService:TicketServiceService, private get:SetAndGetTicketsService) { }
+  constructor(private router: Router, private movieService:MovieServiceService, 
+    private ticketService:TicketServiceService, private get:SetAndGetTicketsService, 
+    private cookieService:CookieService) { }
 
   ngOnInit(): void {
     this.getMovies();
+    this.getUpComingMovies();
   }
 
-  //Need to populate page with Movie information
-
-  //Movie object
-  movieList: IMovie = new IMovie();
+  upcomingMovieList: IMovie = new IMovie();
+  
+  inTheatersMovieList: IMovie = new IMovie();
 
   movie:IMovieDetail = {
     title:"",
@@ -30,7 +33,6 @@ export class MainPageComponent implements OnInit {
     image:"",
     genres:"",
   }
-
 
   ticketList: ITicket[] = [];
 
@@ -48,22 +50,23 @@ export class MainPageComponent implements OnInit {
   {id: 3, name: "10:00PM"}
   ];
 
-  ticketAmounts = [
+  ticketQtys = [
     {id: 1, name: "1"},
     {id: 2, name: "2"},
     {id: 3, name: "3"}
     ];
 
-    ticketInfo = [
-      this.ticketDays,
-      this.ticketTimes,
-      this.ticketAmounts
-    ];
+  ticketInfo = [
+    this.ticketDays,
+    this.ticketTimes,
+    this.ticketQtys
+  ];
   
-
   ticketTime = "";
   ticketDay = "";
-  ticketAmount = null;
+  ticketQty = null;
+
+  movieTicketDays: string[] = [];
 
   ticket: ITicket = {
     price: 15.99,
@@ -78,30 +81,19 @@ export class MainPageComponent implements OnInit {
     },
   }
 
-
-  purchaseTickets(pageMovie:IMovieDetail, ticketDay:any, ticketTime:any, ticketAmount:any){
-    console.log("Purchase Tickets has been called");
-  }
+  purchaseTickets(pageMovie:IMovieDetail, ticketDay:any, ticketTime:any, ticketQty:any){}
 
 
-  //We need to be able to populate a ticket object to send to our back end.
-  saveTickets(pageMovie:IMovieDetail, ticketDay: any, ticketTime: any, ticketAmount:any){
-    console.log("saveTickets function called");
-    console.log(pageMovie.title);
-    console.log(ticketDay);
-    console.log(ticketTime);
-    console.log(ticketAmount);
-
+  saveTickets(pageMovie:IMovieDetail, ticketDay: any, ticketTime: any, ticketQty:any){
     //Setting up our ticket to send back
     this.ticket.movieTitle = pageMovie.title;
     this.ticket.genre = pageMovie.genres;
     this.ticket.showTime = ticketDay.name;
     this.ticket.showTimeSlot = ticketTime.name;
-    console.log(this.ticket);
+ 
+    let id = this.cookieService.getCookie("id");
 
-    let id = this.getCookie("id");
-
-    for (let i = 0; i < ticketAmount.id; i++){
+    for (let i = 0; i < ticketQty.id; i++){
     this.ticketService.createTickets(this.ticket, id)
       .subscribe((data) => {
         console.log(data);
@@ -110,36 +102,28 @@ export class MainPageComponent implements OnInit {
         }
       });
     }
-
   }
 
-  getMovies(){
-
+  getMovies() {
     this.movieService.getMovies()
     .subscribe((data) => {
-      console.log(data);
-
-      this.movieList = data;
-
-    });
+      this.inTheatersMovieList = data;
+      this.movieTicketDays = new Array(this.inTheatersMovieList.items.length).fill("");
+    })
 
   }
 
-
-  getCookie(cname:any) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
+  getUpComingMovies(){
+    this.movieService.getUpComingMovies()
+    .subscribe((data) => {
+      console.log(data);
+      this.upcomingMovieList = data;
+      this.movieTicketDays = new Array(this.upcomingMovieList.items.length).fill("");
+    });
+  }
+  
+  dayChanged(idx: number, event: any) {
+    this.movieTicketDays[idx] = event.target.value;
   }
 
 }
